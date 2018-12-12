@@ -1,0 +1,14 @@
+#map {
+  width: 100%;
+  height: 400px;
+  background-color: grey;
+  display: none;
+ }
+
+body {
+  background: rgb(61, 154, 213);
+}
+
+.mapNumber {
+  display: block;
+}

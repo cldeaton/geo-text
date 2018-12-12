@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>GEO-Text App</h1>
+    <form action="/" class="userData">
+    Number:
+    <input class="number" type="tel" name="number"><br>
+
+    Message Body:
+    <br>
+    <textarea class="messageBody" name="message body" rows="6" cols="50"></textarea><br>
+
+    <button class="daddyFunction" type="button" name="button" value="Address data">Use Address</button>
+    <button class="useMap" type="button" name="button" value="Map data">Use Map</button>
+    <button class="mapRemoval" type="button" name="button" value="Map Removal">Don't Use Map</button>
+    <br>
+    Address:
+    <br>
+    <textarea class="addressInput" name="address" rows="6" cols="40"></textarea><br>
+
+    </form>
+  <p class="showData"></p>
+  <h3>Find Location by Map</h3>
+ <div id="map"></div>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnhjK7qWvZDZ_ccL5x7Yb8kBMm2o6CqRY">
+    </script>
+  </body>
+</html>
