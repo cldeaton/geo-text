@@ -100,7 +100,7 @@ function main() { // rename
       });
   }
   monitorCurrentLocation();
-  monitorInterval = setInterval(monitorCurrentLocation, 1000 * 10);
+  let monitorInterval = setInterval(monitorCurrentLocation, 1000 * 10);
 }
 
 // Transfer to ui

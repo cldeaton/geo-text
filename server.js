@@ -12,7 +12,7 @@ app.get("/", function(req, res){
   res.sendFile(path.join(__dirname + "/dist/index.html"));
 })
 
-app.POST("/SMS", function(req, res){
+app.post("/sms", function(req, res){
 
  })
 
