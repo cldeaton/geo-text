@@ -1,5 +1,6 @@
+import swal from 'sweetalert';
+
 function sendText(message, number) {
-  // const url = 'https://sms-service-46064.herokuapp.com/';
   const url = '/sms';
   console.log(message, number);
   let userSecret = process.env.USER_SECRET;
@@ -17,7 +18,15 @@ function sendText(message, number) {
     headers: {
       'Content-Type': 'application/json',
     },
-  });
+  })
+  .then(response => {
+    console.log(response);
+    if(response.status == 200){
+      swal("Your response", "It worked!!", "success");
+    } else {
+      swal("Your response", "Sorry, it didnt work.", "error")
+    }
+  })
 }
 
 export { sendText };
