@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
@@ -30,10 +31,11 @@ module.exports = {
       title: 'OutputManagement',
       template: './src/index.html',
       filename: 'index.html'
-    })
+    }),
+    new Dotenv()
   ],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-  }
+    }
 };

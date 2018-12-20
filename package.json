@@ -6,13 +6,16 @@
   "scripts": {
     "watch": "webpack --watch",
     "server": "webpack-dev-server --open --config webpack.config.js",
-    "start": "node server.js",
+    "start": "webpack --config webpack.config.js",
     "build": "webpack"
   },
   "author": "deatondev",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "body-parser": "^1.18.3",
+    "dotenv-webpack": "^1.5.7",
+    "express": "^4.16.3",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^1.0.0",

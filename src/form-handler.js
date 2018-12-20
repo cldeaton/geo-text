@@ -28,7 +28,6 @@ function daddyFunction() { // rename
     })
     .catch(errorHandler);
   display.innerHTML = `You want to send "${message}" to (${number}). And the address given is ${inputAddress} `;
-  console.log(message, number);
 }
 
 export { daddyFunction };
