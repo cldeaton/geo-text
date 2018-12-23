@@ -8,7 +8,7 @@ const cipher = crypto.createCipher('aes192', 'a password');
 
 let smsUrl = 'https://sms-service-46064.herokuapp.com/';
 
-app.use(express.static('dist'));
+app.use(express.static(__dirname + '/dist'));
 app.use(bodyParser.json());
 
 // landing page
