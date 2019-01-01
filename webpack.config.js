@@ -12,30 +12,30 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(html)$/,
         use: {
           loader: 'html-loader',
           options: {
-            attrs: [':data-src']
-          }
-        }
-      }
-    ]
+            attrs: [':data-src'],
+          },
+        },
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'OutputManagement',
       template: './src/index.html',
-      filename: 'index.html'
+      filename: 'index.html',
     }),
-    new Dotenv()
+    new Dotenv(),
   ],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    }
+  },
 };

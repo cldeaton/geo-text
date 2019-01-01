@@ -3,7 +3,7 @@ import swal from 'sweetalert';
 function sendText(message, number) {
   const url = '/sms';
   console.log(message, number);
-  let userSecret = process.env.USER_SECRET;
+  const userSecret = process.env.USER_SECRET;
   console.log(userSecret);
 
   fetch(url, {
@@ -12,21 +12,21 @@ function sendText(message, number) {
       {
         messageBody: message,
         userNumber: number,
-        userSecret: userSecret
+        userSecret: userSecret,
       },
     ),
     headers: {
       'Content-Type': 'application/json',
     },
   })
-  .then(response => {
-    console.log(response);
-    if(response.status == 200){
-      swal("Your response", "It worked!!", "success");
-    } else {
-      swal("Your response", "Sorry, it didnt work.", "error")
-    }
-  })
+    .then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        swal('Your response', 'It worked!!', 'success');
+      } else {
+        swal('Your response', 'Sorry, it didnt work.', 'error');
+      }
+    });
 }
 
 export { sendText };
