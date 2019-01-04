@@ -5,9 +5,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const request = require('request');
 const path = require('path');
-const crypto = require('crypto');
-
-const cipher = crypto.createCipher('aes192', 'a password');
 
 const smsUrl = 'https://sms-service-46064.herokuapp.com/';
 
@@ -31,13 +28,14 @@ app.post('/sms', (req, res) => {
     userNumber: number,
     userSecret: secret,
   };
-  res.send('OK');
   request.post(smsUrl, {
-    body: body,
+    body,
     json: true,
-  }, (err, response, body) => {
-    console.log(`Errors:${err}`);
-    console.log(`Res:${response.statusMessage}`);
+  }, (smsErr, smsResponse) => {
+    console.log(`Errors:${smsErr}`);
+    console.log(`Res:${smsResponse.statusMessage}`);
+    res.status(smsResponse.statusCode);
+    res.end();
   });
 });
 

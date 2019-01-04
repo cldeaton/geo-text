@@ -77,8 +77,8 @@ function main() { // rename
       infowindow.open(map, targetMarker);
     });
   });
+  let monitorInterval;
   function monitorCurrentLocation() {
-    let monitorInterval;
     getLatAndLng()
       .then((location) => {
         if (originMarker) {
@@ -100,7 +100,7 @@ function main() { // rename
       });
   }
   monitorCurrentLocation();
-  let monitorInterval = setInterval(monitorCurrentLocation, 1000 * 10);
+  monitorInterval = setInterval(monitorCurrentLocation, 1000 * 10);
 }
 
 // Transfer to ui
