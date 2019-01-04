@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 app.post('/sms', (req, res) => {
   let message = req.body.messageBody;
   let number = req.body.userNumber;
-  let secret = req.body.userSecret;
+  let secret = process.env.USER_SECRET;
   console.log(`Message:${message}`);
   console.log(`Number:${number}`);
   console.log(`PW:${secret}`);
