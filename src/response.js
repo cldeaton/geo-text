@@ -3,7 +3,7 @@ import swal from 'sweetalert';
 function sendText(message, number) {
   const url = '/sms';
   console.log(message, number);
-  const userSecret = process.env.USER_SECRET;
+  const userSecret = 'Dietrich';
   console.log(userSecret);
 
   fetch(url, {
@@ -12,7 +12,7 @@ function sendText(message, number) {
       {
         messageBody: message,
         userNumber: number,
-        userSecret: userSecret,
+        userSecret,
       },
     ),
     headers: {

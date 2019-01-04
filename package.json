@@ -21,7 +21,6 @@
   "devDependencies": {
     "clean-webpack-plugin": "^1.0.0",
     "css-loader": "^1.0.1",
-    "dotenv-webpack": "^1.5.7",
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
