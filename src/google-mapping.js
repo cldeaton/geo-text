@@ -1,7 +1,9 @@
+import swal from 'sweetalert';
 import {
   getLatAndLng, mapDistanceCalculation, checkDist,
 } from './coordinate-util';
 import { sendText } from './response';
+
 
 function initMap() {
   const mapElement = document.getElementById('map');
@@ -30,6 +32,8 @@ function main() { // rename
 
   map.addListener('click', (event) => {
     const targetCoord = event.latLng;
+    const infowindow = new google.maps.InfoWindow();
+
     if (targetMarker) {
       targetMarker.setMap(null);
     }
@@ -42,6 +46,9 @@ function main() { // rename
       targetMarkerCoord = targetMarker.getPosition().toJSON();
       originMarkerCoord = originMarker.getPosition().toJSON();
       console.log(`Current Coords are: ${originMarkerCoord.lat}, ${originMarkerCoord.lng} and you want to send ${message} to ${number}`);
+      // delete infobox onclick
+      infowindow.close();
+      swal('Location Confirmed', 'You\'ll be notified shortly if you made it!');
     }
 
     function handleClick2() {
@@ -70,7 +77,6 @@ function main() { // rename
     popUp.appendChild(numberField);
     popUp.appendChild(currentButton);
     popUp.appendChild(additionalButton);
-    const infowindow = new google.maps.InfoWindow();
     infowindow.setContent(popUp);
 
     targetMarker.addListener('click', () => {
