@@ -1,3 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App';
+
 import './landing.css';
 import { mapDisplay, mapRemoval } from './google-mapping';
 import { daddyFunction } from './form-handler';
@@ -11,3 +15,5 @@ window.addEventListener('load', () => {
   mapRemovalEl.addEventListener('click', mapRemoval);
   daddyFunctionEl.addEventListener('click', daddyFunction);
 });
+
+ReactDOM.render(<App/>, document.getElementById('app'));
