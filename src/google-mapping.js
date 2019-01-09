@@ -80,7 +80,7 @@ function main() { // rename
     // popUp.appendChild(currentButton);
     // popUp.appendChild(additionalButton);
     // infowindow.setContent(popUp);
-    infowindow.setContent(<InfoWindow />);
+    // infowindow.setContent(<InfoWindow />);
 
     targetMarker.addListener('click', () => {
       infowindow.open(map, targetMarker);

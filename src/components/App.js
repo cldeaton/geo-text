@@ -10,7 +10,7 @@ class App extends Component {
                 <h1>GEO-Text App</h1>
                 <FormDisplay />
                 <MapDisplay />
-                <Map />
+                {/* <Map /> */}
             </div>
         );
     }

@@ -1,22 +1,4 @@
 import React, {Component} from 'react';
-import ScriptCache from '../utils/ScriptCache';
-import wrapper from '../utils/GoogleApiComponant';
-import GoogleApi from '../utils/GoogleApi';
-
-this.ScriptCache = ScriptCache({
-    google: 'https://maps.googleapis.com/maps/api/js'
-  });
-
-GoogleApi({
-    apiKey: apiKey,
-    libraries: ['places']
-}); 
-
-export default GoogleApiComponent({
-    apiKey: __GAPI_KEY__
-})(Container)
-
-const evtNames = ['click', 'dragend'];
 
 export class Container extends Component {
     render() {
