@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import FormDisplay from './FormDisplay';
+import MapDisplay from './MapDisplay';
+import Map from './Map';
 
 class App extends Component {
     render() {
         return (
-            <div>
-                <h1>My React App</h1>
+            <div className="App">
+                <h1>GEO-Text App</h1>
+                <FormDisplay />
+                <MapDisplay />
+                <Map />
             </div>
         );
     }
