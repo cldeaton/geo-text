@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import InfoWindow from './components/InfoWindow';
 import swal from 'sweetalert';
 import {
   getLatAndLng, mapDistanceCalculation, checkDist,
@@ -112,4 +111,4 @@ function main() { // rename
   monitorInterval = setInterval(monitorCurrentLocation, 1000 * 10);
 }
 
-export { mapDisplay, mapRemoval, main, handleClick, handleClick2 };
+export { mapDisplay, mapRemoval, main};

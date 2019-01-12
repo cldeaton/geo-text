@@ -17,6 +17,7 @@ function getLatAndLng() {
         lat: response.coords.latitude,
         lng: response.coords.longitude,
       };
+      // console.log(presentAddress);
       return presentAddress;
     })
     .catch(errorHandler);

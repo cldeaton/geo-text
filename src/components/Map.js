@@ -1,78 +1,123 @@
 import React, {Component} from 'react';
-import { compose, withProps } from "recompose"
-import {withScriptjs, withGoogleMap, GoogleMap, Marker} from 'react-google-maps';
-import InfoWindow from './InfoWindow';
-import GoogleMapReact from 'google-map-react';
+import ReactDOM from 'react-dom';
 
 // const apiKey = process.env.GOOGLEMAP_API_KEY;
 const apiKey = 'AIzaSyBnhjK7qWvZDZ_ccL5x7Yb8kBMm2o6CqRY';
 
-// const Map = compose(
-//     withProps({
-//       googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${apiKey}`,
-//       loadingElement: <div style={{ height: `100%` }} />,
-//       containerElement: <div style={{ height: `400px` }} />,
-//       mapElement: <div style={{ height: `100%` }} />,
-//     }),
-//     withScriptjs,
-//     withGoogleMap
-//   )((props) =>
-//     <GoogleMap
-//       defaultZoom={13}
-//       defaultCenter={{ lat: 40.756795, lng: -73.954298 }}
-//     >
-//       {props.isMarkerShown && <Marker position={{ lat: 40.756795, lng: -73.954298 }} onClick={props.onMarkerClick}/>},
-//     </GoogleMap>
-//   );
-  
-//   <Map isMarkerShown />
-
-
-//   class Map extends Component {
-//     render() {
-//     const GoogleMapExample = withScriptjs(withGoogleMap(props => (
-//        <GoogleMap
-//          defaultCenter = { { lat: 40.756795, lng: -73.954298 } }
-//          defaultZoom = { 13 }
-//        >
-//        </GoogleMap>
-//     )));
-//     return(
-//        <div>
-//          <GoogleMapExample
-//             isMarkerShown
-//             googleMapURL = {`https://maps.googleapis.com/maps/api/js?key=${apiKey}`}
-//             loadingElement = { <div style={{ height: `100%` }} /> }
-//             containerElement={ <div style={{ height: `400px`, width: '100%' }} /> }
-//             mapElement={ <div style={{ height: `100%` }} /> }
-//          >
-//          <InfoWindow />
-//          </GoogleMapExample>
-//        </div>
-//     );
-//     }
-//  };
-
-
-export class Map extends Component {
-    static defaultProps = {
-    center: { lat: 40.7446790, lng: -73.9485420 },
-    zoom: 13,
-  }
-    render () {
-        return (
-            <div style={{height: '400px', width: '100%'}}>
-                <GoogleMapReact 
-                bootstrapURLKeys={{key: apiKey}} 
-                defaultCenter={this.props.center} 
-                defaultZoom={this.props.zoom}
-                >
-                {/* <InfoWindow /> */}
+const mapStyles = {
+    width: '100%',
+    height: '400px',
+};
+export class LocalMap extends Component {
+    constructor(props) {
+        super(props);
+        const { lat, lng } = this.props.initialCenter;
+            this.state = {
+                currentLocation: {
+                    lat: lat,
+                    lng: lng,
+                },
                 
-                </GoogleMapReact>
+            }
+    }
+
+    componentDidMount() {
+        if (this.props.centerAroundCurrentLocation) {
+          if (navigator && navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(pos => {
+              const coords = pos.coords;
+              this.setState({
+                currentLocation: {
+                  lat: coords.latitude,
+                  lng: coords.longitude
+                }
+              });
+            });
+          }
+        }
+        this.loadMap();
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.google !== this.props.google) {
+          this.loadMap();
+        }
+        if (prevState.currentLocation !== this.state.currentLocation) {
+          this.recenterMap();
+        }
+    }
+    loadMap() {
+        if (this.props && this.props.google) {
+          // checks if google is available
+          const { google } = this.props;
+          const maps = google.maps;
+    
+          const mapRef = this.refs.map;
+    
+          // reference to the actual DOM element
+          const node = ReactDOM.findDOMNode(mapRef);
+    
+          let { zoom } = this.props;
+          const { lat, lng } = this.state.currentLocation;
+          const center = new maps.LatLng(lat, lng);
+          const mapConfig = Object.assign(
+            {},
+            {
+              center: center,
+              zoom: zoom
+            }
+          );
+          // maps.Map() is constructor that instantiates the map
+          this.map = new maps.Map(node, mapConfig);
+        }
+    }
+    recenterMap() {
+        const map = this.map;
+        const current = this.state.currentLocation;
+    
+        const google = this.props.google;
+        const maps = google.maps;
+    
+        if (map) {
+          let center = new maps.LatLng(current.lat, current.lng);
+          map.panTo(center);
+        }
+    }
+    renderChildren() {
+        const { children } = this.props;
+    
+        if (!children) return;
+    
+        return React.Children.map(children, c => {
+          if (!c) return;
+          return React.cloneElement(c, {
+            map: this.map,
+            google: this.props.google,
+            mapCenter: this.state.currentLocation
+          });
+        });
+    }
+  
+    render () {
+        const style = Object.assign({}, mapStyles);
+        return (
+            <div >
+                <div style={style} ref='map' >
+                    Loading map...
+                </div>
+                {this.renderChildren()}
             </div>
         )
     }
 }
 
-export default Map;
+export default LocalMap;
+
+LocalMap.defaultProps = {
+    zoom: 14,
+    initialCenter: {
+      lat: -1.2884,
+      lng: 36.8233
+    },
+    centerAroundCurrentLocation: false,
+    visible: true
+  };

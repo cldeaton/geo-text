@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import FormDisplay from './FormDisplay';
 import MapDisplay from './MapDisplay';
-import Map from './Map';
 
 class App extends Component {
     render() {
@@ -10,7 +9,6 @@ class App extends Component {
                 <h1>GEO-Text App</h1>
                 <FormDisplay />
                 <MapDisplay />
-                {/* <Map /> */}
             </div>
         );
     }
