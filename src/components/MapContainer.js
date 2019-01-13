@@ -1,69 +1,80 @@
 import React, {Component} from 'react';
-import {InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import LocalMap from './Map';
-import { main } from '../google-mapping';
-import InfoWindowContent from './InfoWindowContent';
+import {render} from 'react-dom';
+import Map from './Map';
+import LocalMap from './LocalMap';
+import InfoWindow from './InfoWindow';
+import blueMarker from '../../public/images/blueMarker.png'
+import magnifyingGlass from '../../public/images/magnifyingGlass.png'
+import tent from '../../public/images/tent.png'
 
-const apiKey = 'AIzaSyBnhjK7qWvZDZ_ccL5x7Yb8kBMm2o6CqRY';
-
+var targetMarker;
 
 export class MapContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showingInfoWindow: false,
-            activeMarker: {},
-            selectedPlace: {},
-        };
-    };
-    mapHandler(e) {
-        console.log("yo");
-        main();
-        
-    }
-    onMarkerClick = (props, marker, e) =>
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
-    // onMapClick = (props) => {
-    //     if (this.state.showingInfoWindow) {
-    //       this.setState({
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
     //         showingInfoWindow: false,
-    //         activeMarker: null
-    //       });
+    //         activeMarker: {},
+    //         selectedPlace: {},
     //     };
-    //     render() {
-    //         <Marker />
-    //     }
     // };
-    onClose = props => {
-        if (this.state.showingInfoWindow) {
-        this.setState({
-            showingInfoWindow: false,
-            activeMarker: null
+    
+    createTargetMarker(e, map){
+        targetMarker = new window.google.maps.Marker({
+            position: {lat: e.latLng.lat(), lng: e.latLng.lng()},
+            map: map,
+            icon: magnifyingGlass,
         });
-        }
-    };
+        
+        targetMarker.addListener('click', e => {
+            this.createInfoWindow(e, map)
+        });
+    }
+    createInfoWindow(e, map) {
+        const infoWindow = new window.google.maps.InfoWindow({
+            content: '<div id="infoWindow" />',
+            position: {lat: e.latLng.lat(), lng: e.latLng.lng()}
+        });
+        infoWindow.addListener('domready', e => {
+            render(<InfoWindow />, document.getElementById('infoWindow'))
+        });
+        infoWindow.open(map)
+    }
     render() {
         return (
-            <LocalMap className={'localMap'} google={this.props.google} onClick={this.mapHandler} centerAroundCurrentLocation >
-                <Marker 
-                onClick={this.onMarkerClick} 
-                name={'Current Location'} /> 
-                <InfoWindow 
-                marker={this.state.activeMarker}
-                visible={this.state.showingInfoWindow} 
-                onClose={this.onClose}
-                >
-                    <InfoWindowContent />
-                </InfoWindow>
-            </LocalMap>
+            <Map 
+            id="myMap"
+            // options={{
+            //     center: {lat: 37.3519703,lng: -79.17290430000003},
+            //     zoom: 14
+            // }}
+            centerAroundCurrentLocation
+            onMapLoad={map => {
+                const marker = new window.google.maps.Marker({
+                    position: map.center,
+                    map: map,
+                    title: 'Current Position',
+                    icon: tent,
+                });
+                
+                map.addListener('click', e => {
+                    if (targetMarker) {
+                        targetMarker.setMap(null);
+                    }
+                    
+                    this.createTargetMarker(e, map)
+                  });
+                marker.addListener('click', e => {
+                    this.createInfoWindow(e, map)
+                })
+            }}
+            >
+               
+            </Map>
         );
     }
 }
 
-export default GoogleApiWrapper({
-    apiKey: apiKey
-  })(MapContainer);
+export default MapContainer;
+
+// {lat: 37.3519703,lng: -79.17290430000003}

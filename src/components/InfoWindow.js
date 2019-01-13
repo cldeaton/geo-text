@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import { main } from '../google-mapping.js'
  
-
-class InfoWindowContent extends Component {
+class InfoWindow extends Component {
     render() {
         return (
            <div>
@@ -16,4 +15,4 @@ class InfoWindowContent extends Component {
     }
 }
 
-export default InfoWindowContent;
+export default InfoWindow;

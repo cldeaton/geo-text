@@ -11,14 +11,10 @@ class MapDisplay extends Component {
             title: 'Use Map',
         };
         this.handleClick = this.handleClick.bind(this);
-        this.mapHandler = this.mapHandler.bind(this);
     }
     
     handleClick(e) {
         this.setState({isToggle: !this.state.isToggle});
-    }
-    mapHandler(e) {
-        main();
     }
     render() {
         return (
@@ -27,7 +23,7 @@ class MapDisplay extends Component {
                 <button onClick={this.handleClick} dangerouslySetInnerHTML={{__html: this.state.isToggle ? 'Don\'t Use Map' : 'Use Map'}} type="button" value="Map data"></button>
                 {/* <div style={{display: this.state.isToggle ? 'block' : 'none'}} id="map"></div> */}
                 <div style={{display: this.state.isToggle ? 'block' : 'none'}} >
-                <MapContainer onClick={this.mapHandler} />
+                <MapContainer  />
                 </div>
                 
             </div>

@@ -57,30 +57,7 @@ function main() { // rename
       // handleClick();
     }
 
-    // const popUp = document.createElement('div');
-    // const title = document.createElement('h2');
-    // title.innerText = 'Want To Go Here?';
-    // const currentButton = document.createElement('button');
-    // const additionalButton = document.createElement('button');
-    // const messageField = document.createElement('textarea');
-    // const numberField = document.createElement('input');
-    // messageField.placeholder = 'What would you like to say?';
-    // messageField.className = 'mapMessage';
-    // numberField.type = 'tel';
-    // numberField.className = 'mapNumber';
-    // numberField.placeholder = 'Number';
-    // currentButton.innerText = 'Use This Location!';
-    // additionalButton.innerText = 'Add Another Location!';
-    // currentButton.addEventListener('click', handleClick);
-    // additionalButton.addEventListener('click', handleClick2);
-    // popUp.appendChild(title);
-    // popUp.appendChild(messageField);
-    // popUp.appendChild(numberField);
-    // popUp.appendChild(currentButton);
-    // popUp.appendChild(additionalButton);
-    // infowindow.setContent(popUp);
-    // infowindow.setContent(<InfoWindow />);
-
+    
     targetMarker.addListener('click', () => {
       infowindow.open(map, targetMarker);
     });
