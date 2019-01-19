@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import DataDisplay from './DataDisplay';
+import { daddyFunction } from '../form-handler';
 
-class FormDisplay extends Component {
+class Form
+ extends Component {
     render() {
         return (
-            <div className="FormDisplay">
+            <div className="Form
+            ">
                 <form action="/" className="userData">
                 <h4>Number:</h4> 
                 <input className="number" type="tel" name="number" />
@@ -13,7 +16,7 @@ class FormDisplay extends Component {
                 <h4>Address:</h4>
                 <textarea className="addressInput" name="address" rows="6" cols="40" />
                 <br />
-                <button className="daddyFunction" type="button" name="button" value="Address data">Use Address</button>
+                <button onClick={daddyFunction} className="daddyFunction" type="button" name="button" value="Address data">Use Address</button>
                 </form>
                 <DataDisplay />
             </div>
@@ -21,4 +24,5 @@ class FormDisplay extends Component {
     }
 }
 
-export default FormDisplay;
+export default Form
+;

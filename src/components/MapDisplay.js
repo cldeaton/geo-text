@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { main } from '../google-mapping';
 // import Map from './Map';
-import MapContainer from './MapContainer';
 
 class MapDisplay extends Component {
     constructor(props) {
