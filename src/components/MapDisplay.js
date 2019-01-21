@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { main } from '../google-mapping';
+// import { main } from '../google-mapping';
 // import Map from './Map';
 
 class MapDisplay extends Component {

@@ -11,22 +11,23 @@ const mapStyles = {
 export class GoogleMap extends Component {
     constructor(props) {
         super(props);
-        const { lat, lng } = this.props;
-            this.state = {
-                currentLocation: {
-                    lat: lat,
-                    lng: lng,
-                },
-                
-            }
+            
             this.onScriptLoad = this.onScriptLoad.bind(this);
     }
     
     onScriptLoad() {
+      const lat = this.props.currentLocation.latitude;
+      const lng = this.props.currentLocation.longitude;
+      const mapData = {
+        center: {
+          lat,
+          lng
+        }, 
+        zoom: 14,
+      } 
       const map = new window.google.maps.Map(
         document.getElementById(this.props.id),
-        // this.state.currentLocation);
-        this.props.options);
+        mapData);
       window.myMap = map;
    
       this.props.onMapLoad(map)

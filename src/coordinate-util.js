@@ -9,7 +9,7 @@ function checkDist(mapDistance) {
 }
 
 function getLatAndLng() {
-  return new Promise(((resolve, reject) => {
+  return new Promise(((resolve) => {
     navigator.geolocation.getCurrentPosition(resolve);
   }))
     .then((response) => {

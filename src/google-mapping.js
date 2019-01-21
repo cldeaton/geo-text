@@ -56,7 +56,6 @@ function main() { // rename
       // create additional targetMarkers and leave current ones
       // handleClick();
     }
-
     
     targetMarker.addListener('click', () => {
       infowindow.open(map, targetMarker);
@@ -88,4 +87,4 @@ function main() { // rename
   monitorInterval = setInterval(monitorCurrentLocation, 1000 * 10);
 }
 
-export { mapDisplay, mapRemoval, main};
+export {main};

@@ -3,9 +3,9 @@ import {render} from 'react-dom';
 import GoogleMap from './GoogleMap';
 import InfoWindow from './InfoWindow';
 import blueMarker from '../../public/images/blueMarker.png'
-// import magnifyingGlass from '../../public/images/magnifyingGlass.png'
 import tent from '../../public/images/tent.png'
-
+// import {getLatAndLng} from '../coordinate-util';
+// var currentCoord = getLatAndLng();
 var targetMarker;
 
 export class Map extends Component {
@@ -33,14 +33,11 @@ export class Map extends Component {
         infoWindow.open(map)
     }
     render() {
+        console.log(this)
         return (
             <GoogleMap 
             id="myMap"
-            options={{
-                center: {lat: 37.3519703,lng: -79.17290430000003},
-                zoom: 14
-            }}
-            centerAroundCurrentLocation
+            currentLocation={this.props.currentLocation}
             onMapLoad={map => {
                 const marker = new window.google.maps.Marker({
                     position: map.center,

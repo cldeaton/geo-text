@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Form from './Form';
 import Map from './Map';
+import { getLatAndLng } from '../coordinate-util';
 
 class App extends Component {
 
@@ -8,16 +9,21 @@ class App extends Component {
         super();
         this.state = {
             currentLocation: {
-                latitude: 20,
-                longitude: 15
+                latitude: undefined,
+                longitude: undefined,
             },
-            target: null,
+            target: undefined,
             mapVisible: true,
         };
         this.handleShowMapClick = this.handleShowMapClick.bind(this);
         this.handleShowFormClick = this.handleShowFormClick.bind(this);
         this.handleMapClick = this.handleMapClick.bind(this);
+        getLatAndLng()
+        .then(response => {
+            this.updateLatLng(response.lat, response.lng);
+        })
     }
+
     handleShowMapClick() {
         this.setState({
             mapVisible: true
@@ -38,12 +44,27 @@ class App extends Component {
             }
         });
     }
+
+    updateLatLng(latitude, longitude) {
+        this.setState({
+            currentLocation: {
+                latitude,
+                longitude,
+            }
+        });
+    }
+
     render() {
         const {
             currentLocation,
             target,
             mapVisible,
         } = this.state; 
+
+
+        if (!this.state.currentLocation.latitude) {
+            return (<div>Loading</div>);
+        }
 
         let viewComponent;
         if (mapVisible) {
@@ -65,8 +86,6 @@ class App extends Component {
             </div>
         );
     }
-
-   
 }
 
 export default App;
