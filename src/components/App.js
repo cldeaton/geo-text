@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Form from './Form';
 import Map from './Map';
-import { getLatAndLng } from '../coordinate-util';
+import { getLatAndLng, checkDist, mapDistanceCalculation } from '../coordinate-util';
 
 class App extends Component {
 
@@ -12,16 +12,27 @@ class App extends Component {
                 latitude: undefined,
                 longitude: undefined,
             },
-            target: undefined,
+            targetLocation: {
+                latitude: undefined,
+                longitude: undefined,
+            },
             mapVisible: true,
         };
         this.handleShowMapClick = this.handleShowMapClick.bind(this);
         this.handleShowFormClick = this.handleShowFormClick.bind(this);
         this.handleMapClick = this.handleMapClick.bind(this);
+        // this.monitorCurrentLocation = this.monitorCurrentLocation.bind(this);
+        this.updateLatLng = this.updateLatLng.bind(this);
+        // Place in setInterval to continuously check for position
+        
+        console.log(this);
         getLatAndLng()
-        .then(response => {
-            this.updateLatLng(response.lat, response.lng);
-        })
+            .then(response => {
+                this.updateLatLng(response.lat, response.lng);
+                
+            });
+        
+        // this.monitorCurrentLocation();
     }
 
     handleShowMapClick() {
@@ -36,11 +47,11 @@ class App extends Component {
         });
     }
 
-    handleMapClick(latitude, longitude) {
+    handleMapClick(e) {
         this.setState({
-            target: {
-                latitude,
-                longitude,
+            targetLocation: {
+                latitude: e.latLng.lat(),
+                longitude: e.latLng.lng(),
             }
         });
     }
@@ -53,11 +64,29 @@ class App extends Component {
             }
         });
     }
+    // let monitorInterval;
+    // monitorCurrentLocation() {
+    //     getLatAndLng()
+    //     .then(response => {
+    //         this.updateLatLng(response.lat, response.lng);
+    //         console.log(this);
+    //         if (this.state.targetLocation.latitude){
+    //             const mapDistance = mapDistanceCalculation(this.state.currentLocation, this.state.targetLocation)
+    //             console.log(mapDistance);
+    //             if (checkDist(mapDistance)){
+    //                 console.log('Yay!!')
+    //             } else {
+    //                 console.log('Not Quite...');
+    //             }
+    //         }
+            
+    //     });
+    // }
 
     render() {
         const {
             currentLocation,
-            target,
+            targetLocation,
             mapVisible,
         } = this.state; 
 
@@ -70,7 +99,7 @@ class App extends Component {
         if (mapVisible) {
             viewComponent = <Map
                                 currentLocation={currentLocation}
-                                target={target}
+                                targetLocation={targetLocation}
                                 handleClick={this.handleMapClick}
                             />;
         } else {

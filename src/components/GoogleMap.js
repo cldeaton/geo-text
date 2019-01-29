@@ -33,7 +33,6 @@ export class GoogleMap extends Component {
       this.props.onMapLoad(map)
     }
     componentDidMount() {
-   
         if (!window.google) {
           let mapScript = document.createElement('script');
           mapScript.type = 'text/javascript';
