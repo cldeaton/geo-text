@@ -50,10 +50,10 @@ function inputAddressComparison(address1, address2) {
 }
 
 function mapDistanceCalculation(address1, address2) {
-  const objLat = address2.lat;
-  const objLng = address2.lng;
-  const currLat = address1.lat;
-  const currLng = address1.lng;
+  const objLat = address2.latitude;
+  const objLng = address2.longitude;
+  const currLat = address1.latitude;
+  const currLng = address1.longitude;
   return distance(objLat, objLng, currLat, currLng);
 }
 

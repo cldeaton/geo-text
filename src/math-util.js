@@ -13,7 +13,6 @@ function distance(lat1, lon1, lat2, lon2) {
   dist = dist * 180 / Math.PI;
   dist = dist * 60 * 1.1515;
   dist *= 1.609344;
-  console.log(dist);
   return dist;
 }
 

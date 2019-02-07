@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import {render} from 'react-dom';
 import GoogleMap from './GoogleMap';
 import InfoWindow from './InfoWindow';
-import blueMarker from '../../public/images/blueMarker.png'
-import tent from '../../public/images/tent.png'
+import blueMarker from '../../public/images/blueMarker.png';
+import tent from '../../public/images/tent.png';
+import { monitorCurrentLocation } from '../google-mapping';
+
 var targetMarker;
 
 export class Map extends Component {
-    
     createTargetMarker(e, map){
         targetMarker = new window.google.maps.Marker({
             position: {lat: this.props.targetLocation.latitude, lng: this.props.targetLocation.longitude},
@@ -26,7 +27,7 @@ export class Map extends Component {
             position: {lat: this.props.targetLocation.latitude, lng: this.props.targetLocation.longitude}
         });
         infoWindow.addListener('domready', e => {
-            render(<InfoWindow />, document.getElementById('infoWindow'))
+            render(<InfoWindow infoWindowHandler={this.props.infoWindowHandler} />, document.getElementById('infoWindow'))
         });
         infoWindow.open(map)
     }
@@ -52,9 +53,6 @@ export class Map extends Component {
                     }
                     this.createTargetMarker(e, map)
                   });
-                marker.addListener('click', e => {
-                    this.createInfoWindow(e, map)
-                })
             }}
             >
                
@@ -64,5 +62,3 @@ export class Map extends Component {
 }
 
 export default Map;
-
-// {lat: 37.3519703,lng: -79.17290430000003}
