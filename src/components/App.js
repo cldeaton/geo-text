@@ -28,7 +28,6 @@ class App extends Component {
         this.updateLatLng = this.updateLatLng.bind(this);
         this.infoWindowHandler = this.infoWindowHandler.bind(this);
         
-        // console.log(this);
         getLatAndLng()
             .then(response => {
                 this.updateLatLng(response.lat, response.lng);
@@ -57,10 +56,9 @@ class App extends Component {
     }
 
     infoWindowHandler(){
-        console.log("hey??");
-        console.log(this);
+        console.log("hey, I'm the infoWindow");
         this.monitorCurrentLocation();
-        // monitorInterval = setInterval(this.monitorCurrentLocation, 1000 * 10);
+        monitorInterval = setInterval(this.monitorCurrentLocation, 1000 * 10);
         // infoWindow.close();
     }
 
@@ -75,14 +73,14 @@ class App extends Component {
 
     monitorCurrentLocation() {
         getLatAndLng()
-        .then(response => {
+        .then((response) => {
             this.updateLatLng(response.lat, response.lng);
             console.log(this);
             if (this.state.targetLocation.latitude){
                 const mapDistance = mapDistanceCalculation(this.state.currentLocation, this.state.targetLocation)
                 console.log(mapDistance);
                 if (checkDist(mapDistance)){
-                    // clearInterval(monitorInterval);
+                    clearInterval(monitorInterval);
                     console.log('Yay!!');
                     // sendText(message, number);
                 } else {
