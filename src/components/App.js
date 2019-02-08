@@ -3,7 +3,6 @@ import Form from './Form';
 import Map from './Map';
 import { getLatAndLng, checkDist, mapDistanceCalculation } from '../coordinate-util';
 import {sendText} from '../response';
-import { distance } from '../math-util';
 
 let monitorInterval;
 class App extends Component {
@@ -59,6 +58,7 @@ class App extends Component {
         console.log("hey, I'm the infoWindow");
         this.monitorCurrentLocation();
         monitorInterval = setInterval(this.monitorCurrentLocation, 1000 * 10);
+        // set window to close when button is pressed or outside of boxed is clicked. 
         // infoWindow.close();
     }
 
