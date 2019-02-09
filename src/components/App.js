@@ -56,6 +56,10 @@ class App extends Component {
 
     infoWindowHandler(){
         console.log("hey, I'm the infoWindow");
+        if (monitorInterval !== undefined) {
+            clearInterval(monitorInterval);
+            monitorInterval = undefined;
+        }
         this.monitorCurrentLocation();
         monitorInterval = setInterval(this.monitorCurrentLocation, 1000 * 10);
         // set window to close when button is pressed or outside of boxed is clicked. 
