@@ -20,12 +20,14 @@ class App extends Component {
             },
             mapVisible: true,
         };
+        //TODO: figure out way to remove binded functions
         this.handleShowMapClick = this.handleShowMapClick.bind(this);
         this.handleShowFormClick = this.handleShowFormClick.bind(this);
         this.handleMapClick = this.handleMapClick.bind(this);
         this.monitorCurrentLocation = this.monitorCurrentLocation.bind(this);
         this.updateLatLng = this.updateLatLng.bind(this);
         this.infoWindowHandler = this.infoWindowHandler.bind(this);
+        this.cancelMonitoring = this.cancelMonitoring.bind(this);
         
         getLatAndLng()
             .then(response => {
@@ -62,8 +64,12 @@ class App extends Component {
         }
         this.monitorCurrentLocation();
         monitorInterval = setInterval(this.monitorCurrentLocation, 1000 * 10);
-        // set window to close when button is pressed or outside of boxed is clicked. 
+        //TODO: set window to close when button is pressed or outside of boxed is clicked. 
         // infoWindow.close();
+    }
+    //TODO: Use with to-be-added buttom to cancel currently ongoing request
+    cancelMonitoring(){
+        clearInterval(monitorInterval);
     }
 
     updateLatLng(latitude, longitude) {
@@ -76,6 +82,8 @@ class App extends Component {
     }
 
     monitorCurrentLocation() {
+        const mapMessage = document.querySelector('.mapMessage').value;
+        const mapNumber = document.querySelector('.mapNumber').value;
         getLatAndLng()
         .then((response) => {
             this.updateLatLng(response.lat, response.lng);
@@ -86,7 +94,7 @@ class App extends Component {
                 if (checkDist(mapDistance)){
                     clearInterval(monitorInterval);
                     console.log('Yay!!');
-                    // sendText(message, number);
+                    sendText(mapMessage, mapNumber);
                 } else {
                     console.log('Not Quite...');
                 }
